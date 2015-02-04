@@ -1,48 +1,67 @@
-<html>
+<html ng-app="myApp">
 <head>
   <meta charset="UTF-8">
   <title>Hangman</title>
+
   <!-- include angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+
+  <!-- include hangman script -->
+  <script src="hangman.js"></script>
 </head>
 
-<body ng-app>
+<body>
   <h1 class="page-header">Hangman with Angular</h1>
-  <!-- verify its working should be "2" = {{1+1}} -->
-  
+
+  <!-- setup HangManCtrl scope -->
   <div ng-controller="HangManCtrl">
+
+      <!-- show _ for each letter in the currentWord -->
+      <div>
+        <span ng-repeat="char in displayChars() track by $index">
+          {{char}}
+        </span>
+      </div>
+
+      <hr>
+
+      <!-- form to enter a new guess -->
+      <form ng-submit="addGuess()">
+        <input type="text" ng-model="newGuess" placeholder="Guess a letter">
+        <button> Add Guess</button>
+      </form>
+
+      <hr>
+
+      <!-- show a list of previous guesses -->
+      <span ng-repeat="guess in guesses" ng-style="isGuessed()"> 
+        {{guess}}
+      </span>
+
+      <hr>
+
+      <!-- show number of guesses, pluralize w/ng-pluralize -->
+      <div>
+        <ng-pluralize count="guesses.length"
+          when="{ 
+                  '0'    : 'You have not guessed.',
+                  '1'    : 'You have guessed {{guesses.length}} time.',
+                  'other': 'You have guessed {{guesses.length}} times.'
+                }">
+        </ng-pluralize>
+      </div>
+
+      <hr>
+
+      <!-- set the currentWord using addWord() -->
       <form ng-submit="addWord()">
           <input ng-model="newWord" type="password" name="newWord" placeholder="Enter a New Word">
           <button> Add Word</button>
       </form>
 
-      <span ng-repeat="char in displayChars() track by $index">
-        {{char}}
-      </span>
-
-      <form ng-submit="addGuess()">
-        <input type="text" ng-model="newGuess" placeholder="Guess a letter">
-        <button> Add Guess</button>
-      </form>
-    
-    <hr>
-    <div>Current Word: {{currentWord}}</div>
-    Current Guesses:
-    <div ng-repeat="guess in guesses" ng-style="isGuessed()"> 
-      {{guess}}
-    </div>
-    
-    <hr>
-    <div>
-      <ng-pluralize count="guesses.length"
-        when="{ 
-                '0'    : 'You have not guessed.',
-                '1'    : 'You have guessed {{guesses.length}} time.',
-                'other': 'You have guessed {{guesses.length}} times.'
-              }">
-      </ng-pluralize>
+      <!-- secret word -->
+      <footer><em><small>Current Word: {{currentWord}}</small></em></footer>
   </div>
 
 </body>
-
 </html>
