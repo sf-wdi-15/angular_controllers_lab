@@ -12,6 +12,7 @@ Angular controllers help us separate concerns.  We are going to build a hangman 
 
 `index.html`
 
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -24,11 +25,11 @@ Angular controllers help us separate concerns.  We are going to build a hangman 
       </div>
     </body>
     </html>
-    
+```
     
 `hangman.js`
 
-```
+```javascript
 var HangManCtrl = function($scope) {
    $scope.currentWord = "angular";
 };
@@ -36,7 +37,7 @@ var HangManCtrl = function($scope) {
 
 Notice that the html has `ng-app` and `ng-controller`.  The `ng-controller` directive binds the div tag to the scope of the controller.  Now angular let's the view have access to the data and methods inside of the controller.  For example, to show the current word, the html would look like this:
 
-
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -50,10 +51,11 @@ Notice that the html has `ng-app` and `ng-controller`.  The `ng-controller` dire
       </div>
     </body>
     </html>
-    
+```
+
 Next, let's add a form to hangman so that the user can enter a secret word.  Here are the changes to the html:
 
-
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -70,7 +72,8 @@ Next, let's add a form to hangman so that the user can enter a secret word.  Her
       </div>
     </body>
     </html>
-    
+```
+
 Two things are new here.  We've added `ng-submit` to the form tag and `ng-model` to the input tag.  The `ng-submit` tells the form which angular method to call on submit.  The `ng-model` tag binds the value of the input tag to `$scope.newWord` in the `HangManCtrl`.
 
 #### Exercise
@@ -83,6 +86,7 @@ Make the contoller save the word that the user adds to the input tag.  For now, 
 
 `index.html`
 
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -100,11 +104,11 @@ Make the contoller save the word that the user adds to the input tag.  For now, 
       </div>
     </body>
     </html>
-
+```
 
 `hangman.js`
 
-```
+```javascript
  var HangManCtrl = function($scope) {
      $scope.currentWord = "angular";
       
@@ -126,6 +130,7 @@ Add another form and input tag.  The input field should be used to gather guesse
 
 `index.html`
 
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -148,10 +153,11 @@ Add another form and input tag.  The input field should be used to gather guesse
       </div>
     </body>
     </html>
-    
+```
+
 `hangman.js`
 
-```
+```javascript
 var HangManCtrl = function($scope) {
     $scope.currentWord = "angular";
     $scope.guessedChars = [];
@@ -171,7 +177,7 @@ var HangManCtrl = function($scope) {
 
 To make this hangman game a little more user friendly, we only want to add a guess to the array of `guessesedChars` if the guess hasn't been tried already.  Here is the new `HangManCtrl` with an updated addGuess method:
 
-```
+```javascript
 var HangManCtrl = function($scope) {
     $scope.currentWord = "angular";
     $scope.guessedChars = [];
@@ -195,7 +201,7 @@ var HangManCtrl = function($scope) {
 
 Our next task in hangman is to display all the characters that the user has guessed so far.  To accomplish the task, we use `ng-repeat` in the html.  The `ng-repeat` directive allows us to loop over a collection of data.
 
-
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -220,10 +226,11 @@ Our next task in hangman is to display all the characters that the user has gues
       </div>
     </body>
     </html>
-
+```
 
 We also want to show the user which guesses are correct so far.  We'll do that by displaying a set of `_`'s and filling in the characters that the user guesses.  Here is the new html which displays the underscores:
 
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -252,7 +259,7 @@ We also want to show the user which guesses are correct so far.  We'll do that b
       </div>
     </body>
     </html>
-
+```
 
 #### Exercise
 
@@ -265,7 +272,7 @@ Fill in the `displayChars` method in the controller.  The method should return a
 
 In the displayChars method the code is going to split the current word into an array.
 
-```
+```javascript
 var HangManCtrl = function($scope) {
     $scope.currentWord = "angular";
     $scope.guessedChars = [];
@@ -299,6 +306,7 @@ var HangManCtrl = function($scope) {
 
 Finally let's finish this app.  We can add the number of guesses just by using the lenght of the guessedChars array:
 
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -330,7 +338,7 @@ Finally let's finish this app.  We can add the number of guesses just by using t
       </div>
     </body>
     </html>
-    
+```
     
 #### Exercise
 
@@ -341,6 +349,8 @@ Use `ng-pluralize` in place of the number of guesses so that the message will be
 #### Solution
 
 `index.html`
+
+```html
 
     <!DOCTYPE html>
     <html>
@@ -377,10 +387,11 @@ Use `ng-pluralize` in place of the number of guesses so that the message will be
       </div>
     </body>
     </html>
+```
 
 `hangman.js`
 
-```
+```javascript
 var HangManCtrl = function($scope) {
     $scope.currentWord = "angular";
     $scope.guessedChars = [];
@@ -403,7 +414,6 @@ var HangManCtrl = function($scope) {
       });
       return chars;
     };
-
 
     $scope.addGuess = function(){
        if($scope.guessedChars.indexOf($scope.guess) === -1){
