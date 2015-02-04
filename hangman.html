@@ -8,60 +8,80 @@
 
   <!-- include hangman script -->
   <script src="hangman.js"></script>
+
+  <!-- include bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 
 <body>
-  <h1 class="page-header">Hangman with Angular</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
 
-  <!-- setup HangManCtrl scope -->
-  <div ng-controller="HangManCtrl">
+        <!-- HangManCtrl scope -->
+        <div ng-controller="HangManCtrl">
 
-      <!-- show _ for each letter in the currentWord -->
-      <div>
-        <span ng-repeat="char in displayChars() track by $index">
-          {{char}}
-        </span>
-      </div>
+            <div class="row">
+                <h1 class="page-header">Hangman with Angular</h1>
+                <div class="jumbotron">
+                  <div class="col-xs-6">
+                    <p>
+                      <!-- show _ for each letter in the currentWord -->
+                      <span ng-repeat="char in displayChars() track by $index">
+                        {{char}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+            </div>
 
-      <hr>
+            <div class="row">
+                <!-- form to enter a new guess -->
+                <form ng-submit="addGuess()">
+                  <input type="text" ng-model="newGuess" placeholder="Guess a letter">
+                  <button> Add Guess</button>
+                </form>
 
-      <!-- form to enter a new guess -->
-      <form ng-submit="addGuess()">
-        <input type="text" ng-model="newGuess" placeholder="Guess a letter">
-        <button> Add Guess</button>
-      </form>
+                <div>
+                  <!-- show a list of previous guesses -->
+                  <span ng-repeat="guess in guesses" ng-style="isGuessed()"> 
+                    {{guess}}
+                  </span>
 
-      <hr>
+                  <hr>
 
-      <!-- show a list of previous guesses -->
-      <span ng-repeat="guess in guesses" ng-style="isGuessed()"> 
-        {{guess}}
-      </span>
+                  <!-- show number of guesses, pluralize w/ng-pluralize -->
+                  <div>
+                    <ng-pluralize count="guesses.length"
+                      when="{ 
+                              '0'    : 'You have not guessed.',
+                              '1'    : 'You have guessed {{guesses.length}} time.',
+                              'other': 'You have guessed {{guesses.length}} times.'
+                            }">
+                    </ng-pluralize>
+                  </div>
+                </div>
 
-      <hr>
+                <hr>
 
-      <!-- show number of guesses, pluralize w/ng-pluralize -->
-      <div>
-        <ng-pluralize count="guesses.length"
-          when="{ 
-                  '0'    : 'You have not guessed.',
-                  '1'    : 'You have guessed {{guesses.length}} time.',
-                  'other': 'You have guessed {{guesses.length}} times.'
-                }">
-        </ng-pluralize>
-      </div>
+                <!-- set the currentWord using addWord() -->
+                <form ng-submit="addWord()">
+                    <input ng-model="newWord" type="password" name="newWord" placeholder="Enter a New Word">
+                    <button> Add Word</button>
+                </form>
 
-      <hr>
+                <!-- secret word -->
+                <footer><em><small>Current Word: {{currentWord}}</small></em></footer>
+            </div>
 
-      <!-- set the currentWord using addWord() -->
-      <form ng-submit="addWord()">
-          <input ng-model="newWord" type="password" name="newWord" placeholder="Enter a New Word">
-          <button> Add Word</button>
-      </form>
+        </div>
+        <!-- /HangManCtrl scope -->
 
-      <!-- secret word -->
-      <footer><em><small>Current Word: {{currentWord}}</small></em></footer>
+    </div>
   </div>
+</div>
 
 </body>
 </html>
