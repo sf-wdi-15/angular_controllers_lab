@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+  <script src="hangman.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
+  <meta charset="utf-8">
+  <title>HangMan</title>
+</head>
+
+<body ng-app>
+<div class="container">
+  <h1>Are you ready for Hangman?</h1>
+  <div ng-controller="HangManCtrl">
+    <br>
+    
+    <form ng-submit="addWord()">
+      <input type="password" name="newWord" ng-model="newWord" placeholder="Enter a new word"> <br>
+      <br>
+      <button> Add Word</button>
+     </form>
+     <br>
+     
+     <span ng-repeat="char in displayChars() track by $index" >
+       {{char}}
+     </span>
+     <br>
+    <br>
+     
+     <form ng-submit="addGuess()">
+       <input type="text" ng-model="guess" placeholder="Enter a guess">
+       <button>Check Guess</button>
+     </form>
+     
+     <br>
+     
+     <div ng-repeat="guessedChar in guessedChars" ng-style="isGuessed()">
+       {{guessedChar}} 
+     </div>
+     
+     <div>
+        <ng-pluralize count="guessedChars.length"
+           when="{'0': 'You have not guessed.',
+                  '1': 'You have guessed {{guessedChars.length}} time',
+                  'other': 'You have guessed {{guessedChars.length}} times'}">
+         </ng-pluralize>
+     </div>
+
+
+
+  </div>
+  </div>
+</body>
+</html>

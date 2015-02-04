@@ -1,0 +1,24 @@
+.hang_man_body {
+  font-size: 50px;
+  margin: 0px;
+}
+
+.left_arm {
+  float: left;
+  margin: 0px;
+}
+
+.torso {
+  float: left;
+  margin: 0px;
+}
+
+.right_foot {
+  float: left;
+  margin-top: 0px;
+}
+
+.left_foot {
+  float: left;
+  margin: 0px;
+}
